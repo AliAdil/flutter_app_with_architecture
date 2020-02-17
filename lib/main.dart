@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'bloc/blocProvider.dart';
 
 void main() => runApp(MyApp());
@@ -11,13 +9,13 @@ void main() => runApp(MyApp());
   runApp(new MyApp());
 }*/
 
-class MyApp extends StatelessWidget {
+/*class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
+      theme: new ThemeData(
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -28,10 +26,9 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.red,
-        secondaryHeaderColor: Colors.yellow,
       ),
       // home: MyHomePage(key:key,title: 'Flutter Demo Home Page'),
-      /*home: MyHomePage(key:key,title: 'Flutter Demo Home Page'),*/
+      *//*home: MyHomePage(key:key,title: 'Flutter Demo Home Page'),*//*
       home: BlocProvider<IncrementBloc>(
         bloc: IncrementBloc(),
         child: CounterPage(),
@@ -39,20 +36,20 @@ class MyApp extends StatelessWidget {
 
     );
   }
-}
+}*/
 
-class MyHomePage extends StatefulWidget {
+/*class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 
-  /* _MyHomePageState createState(){
+  *//* _MyHomePageState createState(){
    return new  _MyHomePageState();
-  }*/
+  }*//*
 
-}
+//}
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -126,6 +123,22 @@ class _MyHomePageState extends State<MyHomePage> {
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}*/
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'Streams Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: BlocProvider<IncrementBloc>(
+        bloc: IncrementBloc(),
+        child: CounterPage(),
+      ),
+    );
+  }
 }
 class CounterPage extends StatelessWidget {
   @override
@@ -160,33 +173,30 @@ class IncrementBloc implements BlocBase {
   // Stream to handle the counter
   //
   StreamController<int> _counterController = StreamController<int>();
-
   StreamSink<int> get _inAdd => _counterController.sink;
-
   Stream<int> get outCounter => _counterController.stream;
 
   //
   // Stream to handle the action on the counter
   //
   StreamController _actionController = StreamController();
-
   StreamSink get incrementCounter => _actionController.sink;
 
   //
   // Constructor
   //
-  IncrementBloc() {
+  IncrementBloc(){
     _counter = 0;
     _actionController.stream
         .listen(_handleLogic);
   }
 
-  void dispose() {
+  void dispose(){
     _actionController.close();
     _counterController.close();
   }
 
-  void _handleLogic(data) {
+  void _handleLogic(data){
     _counter = _counter + 1;
     _inAdd.add(_counter);
   }
